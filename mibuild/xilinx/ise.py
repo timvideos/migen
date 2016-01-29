@@ -110,6 +110,7 @@ xst -ifn {build_name}.xst
 ngdbuild {ngdbuild_opt} -uc {build_name}.ucf {build_name}.{ext} {build_name}.ngd
 map {map_opt} -o {build_name}_map.ncd {build_name}.ngd {build_name}.pcf
 par {par_opt} {build_name}_map.ncd {build_name}.ncd {build_name}.pcf
+trce -tsi {build_name}.tsi {build_name}.ncd {build_name}.pcf
 bitgen {bitgen_opt} {build_name}.ncd {build_name}.bit
 """
     build_script_contents = build_script_contents.format(build_name=build_name,
