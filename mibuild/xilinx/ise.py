@@ -48,7 +48,7 @@ def _build_ucf(named_sc, named_pc):
 
 def _build_xst_files(device, sources, vincpaths, build_name, xst_opt):
     prj_contents = ""
-    for filename, language, library in sources:
+    for filename, language, library in sorted(sources):
         prj_contents += language + " " + library + " " + filename + "\n"
     tools.write_to_file(build_name + ".prj", prj_contents)
 
@@ -59,7 +59,7 @@ def _build_xst_files(device, sources, vincpaths, build_name, xst_opt):
 -ofn {build_name}.ngc
 -p {device}
 """.format(build_name=build_name, xst_opt=xst_opt, device=device)
-    for path in vincpaths:
+    for path in sorted(vincpaths):
         xst_contents += "-vlgincdir " + path + "\n"
     tools.write_to_file(build_name + ".xst", xst_contents)
 
@@ -67,9 +67,9 @@ def _build_xst_files(device, sources, vincpaths, build_name, xst_opt):
 def _run_yosys(device, sources, vincpaths, build_name):
     ys_contents = ""
     incflags = ""
-    for path in vincpaths:
+    for path in sorted(vincpaths):
         incflags += " -I" + path
-    for filename, language, library in sources:
+    for filename, language, library in sorted(sources):
         ys_contents += "read_{}{} {}\n".format(language, incflags, filename)
 
     ys_contents += """hierarchy -check -top top
