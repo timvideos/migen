@@ -24,7 +24,6 @@ class OpenOCD(GenericProgrammer):
             "init",
             "jtagspi_init 0 {}".format(flash_proxy),
             "jtagspi_program {} 0x{:x}".format(data, address),
-            "fpga_program",
             "exit"
         ])
         subprocess.check_call(["openocd", "-f", self.config, "-c", script])
