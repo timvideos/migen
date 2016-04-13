@@ -16,7 +16,7 @@ class OpenOCD(GenericProgrammer):
             "pld load 0 {}".format(bitstream),
             "exit",
         ])
-        subprocess.call(["openocd", "-f", self.config, "-c", script])
+        subprocess.check_call(["openocd", "-f", self.config, "-c", script])
 
     def flash(self, address, data):
         flash_proxy = self.find_flash_proxy()
@@ -27,4 +27,4 @@ class OpenOCD(GenericProgrammer):
             "fpga_program",
             "exit"
         ])
-        subprocess.call(["openocd", "-f", self.config, "-c", script])
+        subprocess.check_call(["openocd", "-f", self.config, "-c", script])
